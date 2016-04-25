@@ -56,7 +56,7 @@ filters:
         user
       where id = ?
     params:
-      - id
+      - user_id
 out:
   type: stdout
 ```
