@@ -18,6 +18,7 @@ module Embulk
           "keep_input" => config.param("keep_input", :bool, default: false)
         }
         connection = ::Mysql.real_connect(task['host'], task['user'], task['password'], task['database'], task['port'])
+        Embulk.logger.info "PREPARE SQL:\n#{task['query']}"
         statement = connection.prepare(task['query'])
         columns = []
         columns = columns + in_schema if task['keep_input']
