@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "embulk-filter-mysql"
-  spec.version       = "0.1.0"
+  spec.version       = "0.1.1"
   spec.authors       = ["toyama0919"]
   spec.summary       = "Mysql filter plugin for Embulk. Execute prepared statements query."
   spec.description   = "Mysql filter plugin for Embulk. Execute prepared statements query."
