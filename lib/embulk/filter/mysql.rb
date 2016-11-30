@@ -1,6 +1,7 @@
 # coding: UTF-8
 require 'ffi-mysql'
- 
+require_relative 'mysql/field'
+
 module Embulk
   module Filter
     class Mysql < FilterPlugin
@@ -30,50 +31,17 @@ module Embulk
         yield(task, columns)
       end
 
-      # ::Mysql::Field::TYPE_DECIMAL     = 0
-      # ::Mysql::Field::TYPE_TINY        = 1
-      # ::Mysql::Field::TYPE_SHORT       = 2
-      # ::Mysql::Field::TYPE_LONG        = 3
-      # ::Mysql::Field::TYPE_FLOAT       = 4
-      # ::Mysql::Field::TYPE_DOUBLE      = 5
-      # ::Mysql::Field::TYPE_NULL        = 6
-      # ::Mysql::Field::TYPE_TIMESTAMP   = 7
-      # ::Mysql::Field::TYPE_LONGLONG    = 8
-      # ::Mysql::Field::TYPE_INT24       = 9
-      # ::Mysql::Field::TYPE_DATE        = 10
-      # ::Mysql::Field::TYPE_TIME        = 11
-      # ::Mysql::Field::TYPE_DATETIME    = 12
-      # ::Mysql::Field::TYPE_YEAR        = 13
-      # ::Mysql::Field::TYPE_NEWDATE     = 14
-      # ::Mysql::Field::TYPE_VARCHAR     = 15
-      # ::Mysql::Field::TYPE_BIT         = 16
-      # ::Mysql::Field::TYPE_TIMESTAMP2  = 17
-      # ::Mysql::Field::TYPE_DATETIME2   = 18
-      # ::Mysql::Field::TYPE_TIME2       = 19
-      # ::Mysql::Field::TYPE_JSON        = 245
-      # ::Mysql::Field::TYPE_NEWDECIMAL  = 246
-      # ::Mysql::Field::TYPE_ENUM        = 247
-      # ::Mysql::Field::TYPE_SET         = 248
-      # ::Mysql::Field::TYPE_TINY_BLOB   = 249
-      # ::Mysql::Field::TYPE_MEDIUM_BLOB = 250
-      # ::Mysql::Field::TYPE_LONG_BLOB   = 251
-      # ::Mysql::Field::TYPE_BLOB        = 252
-      # ::Mysql::Field::TYPE_VAR_STRING  = 253
-      # ::Mysql::Field::TYPE_STRING      = 254
-      # ::Mysql::Field::TYPE_GEOMETRY    = 255
-      # ::Mysql::Field::TYPE_CHAR        = TYPE_TINY
-      # ::Mysql::Field::TYPE_INTERVAL    = TYPE_ENUM
       def self.get_type(name, type)
         case type
-        when ::Mysql::Field::TYPE_TINY
+        when Mysql::Field::TYPE_TINY
           :boolean
-        when ::Mysql::Field::TYPE_SHORT, ::Mysql::Field::TYPE_LONG
+        when Mysql::Field::TYPE_SHORT, Mysql::Field::TYPE_LONG
           :long
-        when ::Mysql::Field::TYPE_DOUBLE, ::Mysql::Field::TYPE_FLOAT
+        when Mysql::Field::TYPE_DOUBLE, Mysql::Field::TYPE_FLOAT
           :double
-        when ::Mysql::Field::TYPE_DATE, ::Mysql::Field::TYPE_DATETIME, ::Mysql::Field::TYPE_TIMESTAMP
+        when Mysql::Field::TYPE_DATE, Mysql::Field::TYPE_DATETIME, Mysql::Field::TYPE_TIMESTAMP
           :timestamp
-        when ::Mysql::Field::TYPE_BLOB, ::Mysql::Field::TYPE_STRING, ::Mysql::Field::TYPE_VAR_STRING, ::Mysql::Field::TYPE_VARCHAR
+        when Mysql::Field::TYPE_BLOB, Mysql::Field::TYPE_STRING, Mysql::Field::TYPE_VAR_STRING, Mysql::Field::TYPE_VARCHAR
           :string
         else
           raise ConfigError.new "Not support column [#{name}], type_no => [#{type}]"
