@@ -24,7 +24,7 @@ module Embulk
         columns = columns + in_schema if task['keep_input']
 
         statement.result_metadata.fetch_fields.each do |field|
-          columns << Column.new(nil, field.name, get_type(field.type))
+          columns << Column.new(nil, field.name, get_type(field.name, field.type))
         end
 
         yield(task, columns)
@@ -63,7 +63,7 @@ module Embulk
       # ::Mysql::Field::TYPE_GEOMETRY    = 255
       # ::Mysql::Field::TYPE_CHAR        = TYPE_TINY
       # ::Mysql::Field::TYPE_INTERVAL    = TYPE_ENUM
-      def self.get_type(type)
+      def self.get_type(name, type)
         case type
         when ::Mysql::Field::TYPE_TINY
           :boolean
@@ -76,7 +76,7 @@ module Embulk
         when ::Mysql::Field::TYPE_BLOB, ::Mysql::Field::TYPE_STRING, ::Mysql::Field::TYPE_VAR_STRING, ::Mysql::Field::TYPE_VARCHAR
           :string
         else
-          raise
+          raise ConfigError.new "Not support column [#{name}], type_no => [#{type}]"
         end
       end
 
