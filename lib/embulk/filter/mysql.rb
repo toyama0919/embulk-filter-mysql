@@ -35,7 +35,7 @@ module Embulk
         case type
         when Mysql::Field::TYPE_TINY
           :boolean
-        when Mysql::Field::TYPE_SHORT, Mysql::Field::TYPE_LONG
+        when Mysql::Field::TYPE_SHORT, Mysql::Field::TYPE_LONG, Mysql::Field::TYPE_LONGLONG
           :long
         when Mysql::Field::TYPE_DOUBLE, Mysql::Field::TYPE_FLOAT
           :double
