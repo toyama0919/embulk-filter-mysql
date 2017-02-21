@@ -43,6 +43,8 @@ module Embulk
           :timestamp
         when Mysql::Field::TYPE_BLOB, Mysql::Field::TYPE_STRING, Mysql::Field::TYPE_VAR_STRING, Mysql::Field::TYPE_VARCHAR
           :string
+        when Mysql::Field::TYPE_JSON
+          :json
         else
           raise ConfigError.new "Not support column [#{name}], type_no => [#{type}]"
         end
