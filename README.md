@@ -1,4 +1,5 @@
 # Mysql filter plugin for Embulk
+[![Gem Version](https://badge.fury.io/rb/embulk-filter-mysql.svg)](http://badge.fury.io/rb/embulk-filter-mysql)
 
 Mysql filter plugin for Embulk. Execute prepared statements query.
 
